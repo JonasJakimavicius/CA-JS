@@ -1,99 +1,35 @@
-let listForm = document.querySelector(".list_form");
-let input = document.querySelector(".input");
-let btnAddEnd = document.querySelector(".btnAddEnd");
-let btnAddStart = document.querySelector(".btnAddStart");
-let btnRmvFirst = document.querySelector(".Btn-rmv-1");
-let btnRmvList = document.querySelector(".Btn-rmv-list");
-let btnRmvLast = document.querySelector(".Btn-rmv-last");
-let list = document.querySelector("#listas");
-let guestArray = [];
-
-
-
-btnAddEnd.addEventListener("click", addEnd);
-btnAddStart.addEventListener("click", addStart);
-btnRmvFirst.addEventListener("click", RmvFirst);
-btnRmvLast.addEventListener("click", RmvLast);
-btnRmvList.addEventListener("click", RmvList);
-
-function addEnd(event) {
-  event.preventDefault();
-  guestArray.push(input.value);
-  renderList();
+/**
+ * Apvercia stringa labas->sabal;
+ * @param string stringas, kuri norime apsukti
+ * @returns {string} apverstas stringas
+ */
+function reverseString(string) {
+    return string.split("").reverse().join("");
 }
 
-function addStart(event) {
-  event.preventDefault();
-  guestArray.unshift(input.value);
-  renderList();
+let string = 'labas';
+console.log(reverseString(string));
+
+/**
+ * replaces all value1 in array with value2
+ * @param array values
+ * @param value1 searching for
+ * @param value2 replacing with
+ * @returns array with replaced values
+ */
+function replace(array, value1, value2) {
+    let new_array = array;
+    if (array.indexOf(value1) !== -1 && value2 != null && value1 !== value2) {
+        new_array[array.indexOf(value1)] = value2;
+        replace(new_array, value1, value2)
+    }
+    return new_array;
 }
 
-function RmvFirst(event) {
-  event.preventDefault();
-  guestArray.shift(input.value);
-  renderList();
-}
-function RmvLast(event) {
-  event.preventDefault();
-  guestArray.pop();
-  renderList();
-}
-function RmvList(event) {
-  event.preventDefault();
-  guestArray.reverse();
-  renderList();
-}
+$array = ['labas', 'petras', 'tatras', 'petras', 'petras'];
 
-function renderList() {
-  list.innerHTML = "";
-  guestArray.forEach(guest => {
-    let div = document.createElement("div");
-    div.innerHTML = guest;
-    list.appendChild(div);
-  });
-}
-
-let inputFrom=document.querySelector('.from-input');
-let inputTo=document.querySelector('.to-input');
-let btnRmvFT=document.querySelector('.btn-rmv-ft')
-
-btnRmvFT.addEventListener('click', removeSelected);
-
-function removeSelected(){
-    guestArray.splice(inputFrom.value-1, (inputTo.value? (inputTo.value-inputFrom.value):1))
-    renderList();
-}
+// console.log(replace($array, 'petras', 'sigitas'))
 
 
-let inputSelect=document.querySelector('.input-select');
-let btnAddSelected=document.querySelector('.btnAddSelected');
 
-btnAddSelected.addEventListener('click', insertInSelectedSpot)
-
-function insertInSelectedSpot(){
-    guestArray.splice(inputSelect.value-1, 0,input.value);
-    renderList();
-}
-
-
-let btnMoveLtoF=document.querySelector('.btnMoveLtoF');
-
-btnMoveLtoF.addEventListener('click', moveLastToFirst)
-
-function moveLastToFirst(){
-  
-    let selected=guestArray[guestArray.length-1];
-    guestArray.unshift(selected);
-    guestArray.pop();
-    renderList();
-}
-let btnMoveFtoL=document.querySelector('.btnMoveFtoL');
-
-btnMoveFtoL.addEventListener('click', moveFirstToLast)
-function moveFirstToLast(){
-  
-    let selected=guestArray[0];
-    guestArray.push(selected)
-    guestArray.shift();
-    renderList();
-}
+    console.log(replace2($array, 'petras', 'sigitas'))
