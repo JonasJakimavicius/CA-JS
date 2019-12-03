@@ -1,35 +1,31 @@
-/**
- * Apvercia stringa labas->sabal;
- * @param string stringas, kuri norime apsukti
- * @returns {string} apverstas stringas
- */
-function reverseString(string) {
-    return string.split("").reverse().join("");
+let password = document.querySelector('.password');
+let service = document.querySelector('.service');
+let button = document.querySelector('.button');
+
+button.addEventListener('click', generatePassword);
+
+function generatePassword(e) {
+    e.preventDefault()
+    let serviceArray = service.value.split('');
+    newArray.push(serviceArray[serviceArray.length - 1]);
+    newArray.push(serviceArray[vowel_count(password.value)-1]);
+    newArray.push(password.value)
+    newArray.push(serviceArray.length-vowel_count(service.value));
+    newArray.push(serviceArray[0]);
+  console.log(  newArray.join(''));
+
 }
 
-let string = 'labas';
-console.log(reverseString(string));
+function vowel_count(str1) {
+    var vowel_list = 'aeiouAEIOU';
+    var vcount = 0;
 
-/**
- * replaces all value1 in array with value2
- * @param array values
- * @param value1 searching for
- * @param value2 replacing with
- * @returns array with replaced values
- */
-function replace(array, value1, value2) {
-    let new_array = array;
-    if (array.indexOf(value1) !== -1 && value2 != null && value1 !== value2) {
-        new_array[array.indexOf(value1)] = value2;
-        replace(new_array, value1, value2)
+    for (var x = 0; x < str1.length; x++) {
+        if (vowel_list.indexOf(str1[x]) !== -1) {
+            vcount += 1;
+        }
+
     }
-    return new_array;
+    return vcount;
 }
 
-$array = ['labas', 'petras', 'tatras', 'petras', 'petras'];
-
-// console.log(replace($array, 'petras', 'sigitas'))
-
-
-
-    console.log(replace2($array, 'petras', 'sigitas'))
