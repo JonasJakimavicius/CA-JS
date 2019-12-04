@@ -1,31 +1,45 @@
-let password = document.querySelector('.password');
-let service = document.querySelector('.service');
-let button = document.querySelector('.button');
-
-button.addEventListener('click', generatePassword);
-
-function generatePassword(e) {
-    e.preventDefault()
-    let serviceArray = service.value.split('');
-    newArray.push(serviceArray[serviceArray.length - 1]);
-    newArray.push(serviceArray[vowel_count(password.value)-1]);
-    newArray.push(password.value)
-    newArray.push(serviceArray.length-vowel_count(service.value));
-    newArray.push(serviceArray[0]);
-  console.log(  newArray.join(''));
-
+function invited(name) {
+    fetch('https://academy-year-2019.herokuapp.com/week-3/party')
+        .then(response => response.json())
+        .then(result => {
+            if (result) {
+                return console.log(result.filter(person => person.name === name).some(person => person.vip === true))
+            }
+            return (Error('Error'))
+        });
 }
 
-function vowel_count(str1) {
-    var vowel_list = 'aeiouAEIOU';
-    var vcount = 0;
+invited('Dominykas Brazauskas');
 
-    for (var x = 0; x < str1.length; x++) {
-        if (vowel_list.indexOf(str1[x]) !== -1) {
-            vcount += 1;
-        }
 
-    }
-    return vcount;
+async function weddingPlusOne() {
+    let response = await fetch(`https://academy-year-2019.herokuapp.com/week-3/wedding`);
+    let data = await response.json()
+    return console.log(data.filter(person => person.attending === true).every(person => person.plusOne === true));
 }
 
+weddingPlusOne();
+
+
+function atleastOneAttending(resolve, reject) {
+    fetch('https://academy-year-2019.herokuapp.com/week-3/wedding')
+        .then(response => response.json())
+        .then(result => {
+            if (result) {
+                resolve(result)
+            } else {
+                reject(result)
+            }
+        })
+        .catch(err => console.log(err))
+}
+
+function success(data) {
+    return console.log(data.some(person => person.attending === true))
+}
+
+function fail(err) {
+    console.log('Nepavyko atsiųsti duoemnų')
+}
+
+atleastOneAttending(success,fail);
